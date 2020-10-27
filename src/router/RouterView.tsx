@@ -6,7 +6,7 @@ import NotFount from '../pages/error/NotFount';
 
 const CreateBasicRouter:any = (path:string,component=NotFount,authKey?:string,beforeEnter?:Function) =>{
     if (authKey && beforeEnter && typeof beforeEnter == "function" && !beforeEnter(path)) {
-        return <Redirect  to={"/login"}/>;
+        return <Redirect key={Math.random()+path}  to={"/login"}/>;
     }
     return <Route exact={true} path={path} component={component} key={path}  />;
 }
@@ -22,7 +22,7 @@ const CreateTreeRouter:React.FC|any = (rootPath:string,childers:RouterConfig[],a
         const t = CreateBasicRouter(rootPath + subPath, component,subAuthKey?subAuthKey:authKey,beforeEnter)
         dom.push(t);
     }
-    return <Route path={rootPath} key={rootPath+1}><Switch>{dom}</Switch></Route>;
+    return <Route path={rootPath} key={rootPath}><Switch>{dom}</Switch></Route>;
 }
 
 export interface RouterViewConfig {
