@@ -1,5 +1,5 @@
 import React from 'react'
-import {BrowserRouter as Router,Switch,Route,Redirect} from 'react-router-dom'
+import {Switch,Route,Redirect} from 'react-router-dom'
 import RouterMap,{RouterConfig} from "./index";
 import NotFount from '../pages/error/NotFount';
 
