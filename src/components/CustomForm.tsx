@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 import { Form, Input, Button, Checkbox } from 'antd';
 import {FormItemProps, FormProps, Rule} from "antd/es/form";
+import {FieldData} from "rc-field-form/lib/interface";
 
 // InternalFieldProps
 export interface CustomFormRowsProps extends FormItemProps{
@@ -12,7 +13,8 @@ export interface CustomFormRowsProps extends FormItemProps{
 }
 
 export interface CustomFormProps extends FormProps{
-    row:CustomFormProps[]
+    rows:CustomFormRowsProps[],
+    fields?:FieldData[]
 }
 
 interface O {
@@ -25,7 +27,7 @@ const FormItemTypeMap:O = {
 
 
 const CreateFormItem:React.FC<CustomFormRowsProps> = (v:CustomFormRowsProps) =>{
-    const {type,render,params,...other} = v;
+    const {type,render,params,rules=[],...other} = v;
     const Com = FormItemTypeMap[type];
 
     if (render) { // 自定义渲染
@@ -34,14 +36,14 @@ const CreateFormItem:React.FC<CustomFormRowsProps> = (v:CustomFormRowsProps) =>{
     }
 
     return (
-        <Form.Item {...other} rules={[]}>
+        <Form.Item {...other} rules={rules} key={v.type}>
             <Com {...params} />
         </Form.Item>
     );
 }
 
 const CustomForm:React.FC<CustomFormProps> = (props) => {
-    const rows:CustomFormRowsProps[] = [{type: "input",name:"username", placeholder: "请输入姓名",rules:[{ required: true, message: 'Please input your username!' }]}];
+    const {rows} = props;
     return (
         <Form {...props}>
             {rows.map((v:CustomFormRowsProps)=>{

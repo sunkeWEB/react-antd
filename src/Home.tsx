@@ -4,9 +4,9 @@ import {RootStore} from './redux/store'
 
 const Home = () => {
     const dispatch = useDispatch();
-    const name = useSelector((state:RootStore) => {
+    const name = useSelector((state: RootStore) => {
         return state.name;
-    })
+    });
 
     useEffect(()=>{
         // console.log("name改变：",name)

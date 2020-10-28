@@ -1,17 +1,20 @@
 import http from "./httpRequest";
 import config from "../../config";
+import ResultBean from "./ResultBean";
+
+
 
 // 网络请求工具类
 export default class Request{
     /**
      * Get请求
-     * */ 
+     * */
     static Get(url:string,data={}){
         return http.request("get",url,data);
     }
     /**
      * Post请求
-     * */ 
+     * */
     static Post(url:string,data={}){
         return http.request("post",url,data);
     }
@@ -32,5 +35,23 @@ export default class Request{
           _data = fm;
        }
        return http.request("post",url,_data);
-    } 
-} 
+    }
+
+    /**
+     * 根据 method字符串 请求
+     */
+    static SendRequest(method:string,api:string,data:any):Promise<ResultBean> {
+        // @ts-ignore
+        const send = RequestMethodMap[method.toLocaleLowerCase()];
+        if (!send) {
+            throw new Error("不支持的请求方式");
+        }
+        return send(api, data);
+    }
+
+}
+
+export const RequestMethodMap = {
+    get:Request.Get,
+    post:Request.Post
+};

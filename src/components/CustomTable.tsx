@@ -5,11 +5,6 @@ import ResultBean from "../utils/request/ResultBean";
 import { ColumnsType } from 'antd/lib/table';
 
 
-const RequestMethodMap = {
-    get:Request.Get,
-    post:Request.Post
-};
-
 interface CustomTableProps {
     api?:string, //异步请求数据必须
     method?:string, // 异步请求默认GET
@@ -25,12 +20,7 @@ const CustomTable:React.FC<CustomTableProps> = (props) => {
     const {api, data, method="GET",params={},columns,pagination=true,...other} = props;
 
     const getData = async () =>{
-        // @ts-ignore
-        let sendRequest = RequestMethodMap[method.toLocaleLowerCase()];
-        if (!sendRequest) {
-            throw new Error("请求方式不支持: "+ method);
-        }
-        const ret:ResultBean = await sendRequest(api,params);
+        const ret = await Request.SendRequest(method,api||"",params||{});
         if (ret.isSuccess) {
             // 根据实际的后台返回 进行改动
             const {list} = ret.data;
