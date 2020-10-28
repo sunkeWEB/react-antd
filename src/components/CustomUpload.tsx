@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { Upload, message } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import Request from "../utils/request";
 
 interface CustomUploadProps {
     api?:string,// 上传接口
@@ -15,7 +16,15 @@ const CustomUpload:React.FC<CustomUploadProps> = (props) => {
     const [imageUrl, setImageUrl] = useState("");
 
     const uploadSubmit =  async () => {
-        onUpload && onUpload();
+        const formData = new FormData();
+        setLoading(true)
+        formData.append(filed || "", "");
+        const ret = await Request.FormData(api||"", formData);
+        if (!ret.isSuccess) {
+            return message.warn(ret.message);
+        }
+        setLoading(false);
+        onUpload && onUpload(ret);
     }
 
     const uploadButton = (
