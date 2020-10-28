@@ -23,6 +23,7 @@ const RouterMap:RouterConfig[] = [
         childers:[
             {
                 path:"/list/:id",
+
                 component:ProjectView
             },
             {

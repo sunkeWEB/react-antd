@@ -1,0 +1,29 @@
+.loadingBox {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -50%;
+    animation:SlideDown 0.5s linear forwards;
+    border-radius: 6px;
+}
+/* 加载框下滑动 */
+@keyframes SlideDown {
+    30% {
+        top: 1%;
+        transform: translate3d(-50%, -1%, 0);
+    }
+    60% {
+        top: 2%;
+        transform: translate3d(-50%, -2%, 0);
+    }
+    100% {
+        top: 2%;
+        transform: translate3d(-50%, -2%, 0);
+    }
+}
+
+.loadImg {
+    width: 18px;
+    display: block;
+    padding-right: 10px;
+}
