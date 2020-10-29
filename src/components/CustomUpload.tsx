@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Upload, message } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import Request from '../utils/request';
@@ -13,7 +13,7 @@ interface CustomUploadProps {
 const CustomUpload:React.FC<CustomUploadProps> = (props) => {
   const { api, filed, onUpload } = props;
   const [loading, setLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState('');
+  const [imageUrl] = useState('');
 
   // eslint-disable-next-line consistent-return
   const uploadSubmit = async () => {

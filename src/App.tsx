@@ -1,32 +1,19 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import {
-  createDispatchHook, createSelectorHook, createStoreHook, Provider,
-} from 'react-redux';
+import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import {
-  Button, DatePicker, Form, Select,
-} from 'antd';
-import { useForm } from 'antd/es/form/Form';
-import { FormInstance } from 'antd/lib/form';
-import moment from 'moment';
 import RouterView from './router/RouterView';
 import reducer from './redux/reducer';
 import './App.css';
-import CustomTable from './components/CustomTable';
 import 'antd/dist/antd.css';
 import CustomForm, { CustomFormRowsProps } from './components/CustomForm';
-import CustomSelect from './components/CustomSelect';
-import CustomUpload from './components/CustomUpload';
 import UseModal from './components/Modal';
-import Home from './Home';
 import Request from './utils/request';
 
 const AddUser:React.FC = (props:any) => {
-  const [form] = useForm();
-  const onFinish = (values:any) => {
+  const onFinish = (values:object) => {
     console.log('Success:', values);
     props?.ok();
   };
@@ -36,7 +23,6 @@ const AddUser:React.FC = (props:any) => {
   };
 
   useEffect(() => {
-    Request.Get('//asa', {});
     props?.openSuccess(props?.form);
   }, []);
 
@@ -88,17 +74,17 @@ const layout = {
   wrapperCol: { span: 24 },
   // horizontal:true
 };
-const dateFormat = 'YYYY-MM-DD';
 function App() {
   const modal = UseModal();
-  const kk = () => 1;
   return (
     <Provider store={store}>
       <div id="App">
         <Router>
           <div>
-            <div onClick={(e) => {
-              kk();
+            <div onClick={async () => {
+              await modal.openComponent(AddUser, { name: '添加用户' }, () => {
+                console.log('s');
+              });
             }}
             >
               打开弹框
