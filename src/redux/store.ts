@@ -8,8 +8,8 @@ export interface RootStore {
 /**
  * 初始化默认的store
  */
-const InitStore:RootStore ={
-    name:""
-}
+const InitStore:RootStore = {
+  name: '',
+};
 
 export default InitStore;

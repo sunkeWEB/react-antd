@@ -1,33 +1,12 @@
-import React, {useEffect} from 'react'
-import {useDispatch, useSelector} from "react-redux";
-import {RootStore} from './redux/store'
-import {store} from "./App";
+import React, { useEffect } from 'react';
 
-const Home = (props:any) => {
-    const dispatch = store.dispatch;
-    // const name = useSelector((state: RootStore) => {
-    //     return state.name;
-    // });
-    //
-    // useEffect(()=>{
-    //     // console.log("name改变：",name)
-    // },[name])
-    //
-    // function add () {
-    //     dispatch({
-    //         type:"add",
-    //         name: Math.random() + ""
-    //     })
-    // }
+const Home = (props:any) => (
+  <div onClick={() => {
+    props?.ok?.();
+  }}
+  >
+    hello,
+  </div>
+);
 
-    return (
-        <div onClick={()=>{
-            props.ok()
-        }}>
-            hello,{props.name}
-
-        </div>
-    )
-}
-
-export default Home
+export default Home;
